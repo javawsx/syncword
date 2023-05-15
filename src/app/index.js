@@ -8,6 +8,6 @@ app.use(bodyParser())
 
 app.use(router.routes())
 
-app.on('error',errHandler)
+app.on('error', errHandler)
 
-module.exports=app
+module.exports = app

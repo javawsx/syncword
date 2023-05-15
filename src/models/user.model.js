@@ -13,6 +13,11 @@ const User = seq.define('zd_user', {
         allowNull: false,
         comment: "密码"
     },
+    email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        comment: "邮件"
+    },
     is_admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -25,6 +30,6 @@ const User = seq.define('zd_user', {
 })
 
 // 强制同步数据表(创建数据表)
-//User.sync({ force:true })
+// User.sync({ force:true })
 
 module.exports = User
