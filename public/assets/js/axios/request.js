@@ -7,6 +7,7 @@ service.interceptors.request.use(
   // 请求拦截
   (config) => {
     console.log('config:', config)
+
     console.log('token:', localStorage.getItem('token'))
     if (localStorage.getItem('token')) {
       console.log('token:', localStorage.getItem('token'))

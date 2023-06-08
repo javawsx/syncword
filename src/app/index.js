@@ -12,9 +12,13 @@ const session = require('koa-session')
 
 const errHandler = require('./errHandler')
 const router = require('../router/index')
+const logger = require('../middleware/logger.middleware')
 
 // 全局使用跨域中间件
 app.use(cors())
+
+// 全局使用日志中间件
+app.use(logger())
 
 // 配置静态资源
 app.use(koaStatic(process.cwd() + '/public'))

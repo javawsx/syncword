@@ -11,12 +11,10 @@ const {
   register,
   login,
   changePassword,
-  userInfo,
   sendCaptcha,
 } = require('../controller/user.controller')
-const { auth } = require('../middleware/auth.middleware')
 const koaRouter = require('koa-router')
-const router = new koaRouter({ prefix: '/users' })
+const router = new koaRouter({ prefix: '/api' })
 
 // login
 // router.get('/login', async ctx =>{
@@ -26,7 +24,7 @@ const router = new koaRouter({ prefix: '/users' })
 
 // register
 router.post(
-  '/my/register',
+  '/register',
   userValidator,
   verifyPassword,
   verifyEmail,
@@ -36,14 +34,9 @@ router.post(
 )
 
 // login
-router.post('/my/login', userValidator, verifyLogin, login)
+router.post('/login', userValidator, verifyLogin, login)
 
 // emailValidator
-router.post('/my/email', verifyEmail, verifyEmailExist, sendCaptcha)
-
-router.get('/userInfo', auth, userInfo)
-
-// change password
-router.patch('/', auth, verifyPassword, cryptPassword, changePassword)
+router.post('/email', verifyEmail, verifyEmailExist, sendCaptcha)
 
 module.exports = router
