@@ -18,6 +18,9 @@ router.get('/', async (ctx, next) => {
     title: 'Dashboard',
     page_title: 'Dashboard',
     folder: 'Dashboards',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    email: ctx.session.email,
   })
 })
 
@@ -26,18 +29,18 @@ router.get('/index', async (ctx, next) => {
     title: 'Dashboard',
     page_title: 'Dashboard',
     folder: 'Dashboards',
-  })
-})
-
-router.get('/pages-profile', async (ctx, next) => {
-  await ctx.render('pages-profile', {
-    title: 'Profile',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    email: ctx.session.email,
   })
 })
 
 router.get('/pages-profile-settings', async (ctx, next) => {
   await ctx.render('pages-profile-settings', {
     title: 'Profile',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    email: ctx.session.email,
   })
 })
 

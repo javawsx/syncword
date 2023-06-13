@@ -10,7 +10,6 @@ const {
 const {
   register,
   login,
-  changePassword,
   sendCaptcha,
 } = require('../controller/user.controller')
 const koaRouter = require('koa-router')

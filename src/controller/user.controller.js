@@ -40,9 +40,18 @@ class UserController {
 
     // 1.获取用户信息(在token的playLoad中，记录id,user_name,is_admin)
     try {
-      // 从返回结果中剔除password和email
-      const { password, email, ...res } = await getUserInfo({ user_name })
+      // 获取查询数据
+      const userInfo = await getUserInfo({ user_name })
+      // session赋值
+      ctx.session.isLogin = true
+      ctx.session.username = userInfo.user_name
+      ctx.session.is_admin = userInfo.is_admin
+      ctx.session.email = userInfo.email
 
+      // 从返回结果中剔除password和email
+      const { password, email, ...res } = userInfo
+
+      // 返回结果
       ctx.body = {
         code: 0,
         message: '用户登录成功！',
@@ -67,6 +76,27 @@ class UserController {
       }
     } catch (err) {
       console.error('用户信息获取失败！', err)
+    }
+  }
+
+  async userEdit(ctx, next) {
+    const { user_name, email } = ctx.request.body
+    const id = ctx.state.user.id
+    try {
+      if (await updateById({ id, user_name, email })) {
+        // 成功，更新用户信息session值
+        ctx.session.username = user_name
+        ctx.session.email = email
+
+        // 3.返回结果
+        ctx.body = {
+          code: 0,
+          message: '用户信息更新成功！',
+          result: '',
+        }
+      }
+    } catch (err) {
+      console.error('用户信息更新失败！', err)
     }
   }
 

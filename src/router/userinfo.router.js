@@ -5,13 +5,26 @@ const {
   cryptPassword,
   verifyPassword,
 } = require('../middleware/user.middleware')
-const { changePassword, userInfo } = require('../controller/user.controller')
+const {
+  changePassword,
+  userInfo,
+  userEdit,
+} = require('../controller/user.controller')
 const { auth } = require('../middleware/auth.middleware')
 
 // 获取用户信息
 router.get('/userInfo', auth, userInfo)
 
+// 更改用户信息
+router.post('/edit', auth, userEdit)
+
 // change password
-router.patch('/', auth, verifyPassword, cryptPassword, changePassword)
+router.patch(
+  '/changePassword',
+  auth,
+  verifyPassword,
+  cryptPassword,
+  changePassword
+)
 
 module.exports = router
