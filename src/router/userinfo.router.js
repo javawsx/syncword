@@ -9,6 +9,7 @@ const {
   changePassword,
   userInfo,
   userEdit,
+  userImageEdit,
 } = require('../controller/user.controller')
 const { auth } = require('../middleware/auth.middleware')
 
@@ -17,6 +18,9 @@ router.get('/userInfo', auth, userInfo)
 
 // 更改用户信息
 router.post('/edit', auth, userEdit)
+
+// 更改用户信息
+router.post('/editImage', auth, userImageEdit)
 
 // change password
 router.patch(

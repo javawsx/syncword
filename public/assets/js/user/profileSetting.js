@@ -1,9 +1,31 @@
-import { doUserEdit, doChangePassword } from '../axios/api.js'
+import { doUserImageEdit, doUserEdit, doChangePassword } from '../axios/api.js'
 import {
   alertSuccess,
   alertLinkAfterSuccess,
   alertError,
 } from '../axios/alerts.js'
+
+// 修改头像模块
+document
+  .querySelector('.profile-img-file-input')
+  .addEventListener('change', () => {
+    event.preventDefault()
+    var files = event.target.files
+    console.log(files)
+    var fd = new FormData()
+    fd.append('file', files[0])
+    doUserImageEdit(fd)
+      .then(function (response) {
+        alertLinkAfterSuccess({
+          message: response.data.message,
+          link: '/pages-profile-settings',
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  })
+
 const form = document.querySelectorAll('.form')
 // 修改信息模块
 form[0].addEventListener('submit', () => {

@@ -27,6 +27,15 @@ export const doUserEdit = (data) => {
   })
 }
 
+// 修改用户信息
+export const doUserImageEdit = (data) => {
+  return service({
+    url: '/api/users/editImage',
+    method: 'post',
+    data: data,
+  })
+}
+
 // 修改密码
 export const doChangePassword = (data) => {
   return service({

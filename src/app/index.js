@@ -43,12 +43,12 @@ app.use(
   koaBody({
     multipart: true, // 支持多文件上传
     formidable: {
-      uploadDir: path.join(__dirname, '../public/upload'), // 设置文件上传目录
+      uploadDir: process.cwd() + '/public/assets/images/upload', // 设置文件上传目录
       keepExtensions: true, // 保持文件的后缀
       maxFieldsSize: 10 * 1024 * 1024, // 文件上传大小限制
       onFileBegin: (name, file) => {
         // 最终要保存到的文件夹目录
-        const dir = path.join(__dirname, `../public/upload`)
+        const dir = process.cwd() + '/public/assets/images/upload'
         // 检查文件夹是否存在如果不存在则新建文件夹
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir)
@@ -59,7 +59,8 @@ app.use(
 
         //修改上传文件名
         file.filepath =
-          path.join(__dirname, '../public/upload/') +
+          process.cwd() +
+          '/public/assets/images/upload/' +
           'upload_' +
           Date.now() +
           ext

@@ -17,9 +17,6 @@ const {
 // 验证参数合法性
 const userValidator = async (ctx, next) => {
   const { user_name, password } = ctx.request.body
-  console.log(ctx.request.body)
-  console.log(user_name)
-  console.log(password)
   if (Validator.isEmpty(user_name) || Validator.isEmpty(password)) {
     console.error('用户名或者密码不能为空', ctx.request.body)
     ctx.app.emit('error', userFormateError, ctx)
@@ -32,11 +29,14 @@ const userValidator = async (ctx, next) => {
 // 验证密码合法性
 const verifyPassword = async (ctx, next) => {
   const { password } = ctx.request.body
-  // if (!Validator.isLength(password, { min: 8, max: undefined }) || Validator.isAlphanumeric(password)) {
-  //   console.error('密码格式不正确', ctx.request.body)
-  //   ctx.app.emit('error', userPasswordError, ctx)
-  //   return
-  // }
+  if (
+    !Validator.isLength(password, { min: 8, max: undefined }) ||
+    Validator.isAlphanumeric(password)
+  ) {
+    console.error('密码格式不正确', ctx.request.body)
+    ctx.app.emit('error', userPasswordError, ctx)
+    return
+  }
   await next()
 }
 

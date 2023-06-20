@@ -31,9 +31,10 @@
                       <div class="p-0 ms-auto rounded-circle profile-photo-edit">
                         <input id="profile-foreground-img-file-input" type="file"
                           class="profile-foreground-img-file-input">
-                        <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                        <!-- <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light"
+                          data-key="t-change-cover">
                           <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
-                        </label>
+                        </label> -->
                       </div>
                     </div>
                   </div>
@@ -46,7 +47,7 @@
                     <div class="card-body p-4">
                       <div class="text-center">
                         <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
-                          <img src="assets/images/users/avatar-1.jpg"
+                          <img src="assets/images/upload/<%= user_image %>"
                             class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
                           <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
                             <input id="profile-img-file-input" type="file" class="profile-img-file-input">
@@ -71,7 +72,7 @@
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-5">
                         <div class="flex-grow-1">
-                          <h5 class="card-title mb-0">Complete Your Profile</h5>
+                          <h5 class="card-title mb-0" data-key="t-complete-profile">Complete Your Profile</h5>
                         </div>
                       </div>
                       <div class="progress animated-progress custom-progress progress-label">
@@ -90,13 +91,15 @@
                     <div class="card-header">
                       <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab">
+                          <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab"
+                            data-key="t-personal-detail">
                             <i class="fas fa-home"></i>
                             Personal Details
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
+                          <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab"
+                            data-key="t-change-password">
                             <i class="far fa-user"></i>
                             Change Password
                           </a>
@@ -110,7 +113,7 @@
                             <div class="row">
                               <div class="col-lg-6">
                                 <div class="mb-3">
-                                  <label for="firstnameInput" class="form-label">User
+                                  <label for="firstnameInput" class="form-label" data-key="t-username">User
                                     Name</label>
                                   <input type="text" class="form-control" id="userNameInput"
                                     placeholder="Enter your firstname" value="<%-user_name %>">
@@ -119,7 +122,7 @@
                               <!--end col-->
                               <div class="col-lg-6">
                                 <div class="mb-3">
-                                  <label for="emailInput" class="form-label">Email
+                                  <label for="emailInput" class="form-label" data-key="t-mailbox">Email
                                     Address</label>
                                   <input type="email" class="form-control" id="emailInput"
                                     placeholder="Enter your email" value="<%-email %>">
@@ -130,7 +133,7 @@
                               <!--end col-->
                               <div class="col-lg-4">
                                 <div class="mb-3">
-                                  <label for="cityInput" class="form-label">City</label>
+                                  <label for="cityInput" class="form-label" data-key="t-city">City</label>
                                   <span type="text" class="form-control" id="cityInput" placeholder="City"
                                     value="杭州">杭州</span>
                                 </div>
@@ -138,7 +141,7 @@
                               <!--end col-->
                               <div class="col-lg-4">
                                 <div class="mb-3">
-                                  <label for="countryInput" class="form-label">Country</label>
+                                  <label for="countryInput" class="form-label" data-key="t-country">Country</label>
                                   <span type="text" class="form-control" id="countryInput" placeholder="Country"
                                     value="中国">中国</span>
                                 </div>
@@ -146,8 +149,8 @@
                               <!--end col-->
                               <div class="col-lg-12">
                                 <div class="hstack gap-2 justify-content-end">
-                                  <button type="submit" class="btn btn-primary">Updates</button>
-                                  <button type="reset" class="btn btn-soft-success">Cancel</button>
+                                  <button type="submit" class="btn btn-primary" data-key="t-update">Updates</button>
+                                  <button type="reset" class="btn btn-soft-success" data-key="t-cancel">Cancel</button>
                                 </div>
                               </div>
                               <!--end col-->
@@ -161,7 +164,7 @@
                             <div class="row g-2">
                               <div class="col-lg-4">
                                 <div>
-                                  <label for="newpasswordInput" class="form-label">New
+                                  <label for="newpasswordInput" class="form-label" data-key="t-new-password">New
                                     Password*</label>
                                   <input type="password" class="form-control" id="newpasswordInput"
                                     placeholder="Enter new password">
@@ -170,7 +173,8 @@
                               <!--end col-->
                               <div class="col-lg-4">
                                 <div>
-                                  <label for="confirmpasswordInput" class="form-label">Confirm
+                                  <label for="confirmpasswordInput" class="form-label"
+                                    data-key="t-confirm-password">Confirm
                                     Password*</label>
                                   <input type="password" class="form-control" id="confirmpasswordInput"
                                     placeholder="Confirm password">
@@ -179,7 +183,7 @@
                               <!--end col-->
                               <div class="col-lg-12">
                                 <div class="text-end">
-                                  <button type="submit" class="btn btn-success">Change
+                                  <button type="submit" class="btn btn-success" data-key="t-change-password">Change
                                     Password</button>
                                 </div>
                               </div>

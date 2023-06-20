@@ -21,6 +21,7 @@ router.get('/', async (ctx, next) => {
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
     email: ctx.session.email,
+    user_image: ctx.session.user_image,
   })
 })
 
@@ -32,6 +33,7 @@ router.get('/index', async (ctx, next) => {
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
     email: ctx.session.email,
+    user_image: ctx.session.user_image,
   })
 })
 
@@ -41,6 +43,7 @@ router.get('/pages-profile-settings', async (ctx, next) => {
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
     email: ctx.session.email,
+    user_image: ctx.session.user_image,
   })
 })
 
