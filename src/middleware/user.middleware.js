@@ -31,7 +31,7 @@ const verifyPassword = async (ctx, next) => {
   const { password } = ctx.request.body
   if (
     !Validator.isLength(password, { min: 8, max: undefined }) ||
-    Validator.isAlphanumeric(password)
+    !Validator.isAlphanumeric(password)
   ) {
     console.error('密码格式不正确', ctx.request.body)
     ctx.app.emit('error', userPasswordError, ctx)

@@ -17,11 +17,12 @@ document.querySelector('.form').addEventListener('submit', () => {
       console.log(response)
       if (response.data.code !== 0) {
         alertError('注册失败！')
+      } else {
+        alertLinkAfterSuccess({
+          message: '注册成功！',
+          link: '/login',
+        })
       }
-      alertLinkAfterSuccess({
-        message: '注册成功！',
-        link: '/login',
-      })
     })
     .catch(function (error) {
       alertError(error.response.data.message)
