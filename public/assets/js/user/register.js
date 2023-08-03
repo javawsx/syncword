@@ -1,4 +1,4 @@
-import { doRegister } from '../axios/api.js'
+import { doRegister } from '../axios/user.api.js'
 import { alertLinkAfterSuccess, alertError } from '../axios/alerts.js'
 document.querySelector('.form').addEventListener('submit', () => {
   event.preventDefault()

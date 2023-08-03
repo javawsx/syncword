@@ -1,4 +1,4 @@
-import { doLogin } from '../axios/api.js'
+import { doLogin } from '../axios/user.api.js'
 import { alertError, alertAuto } from '../axios/alerts.js'
 document.querySelector('.form').addEventListener('submit', () => {
   event.preventDefault()

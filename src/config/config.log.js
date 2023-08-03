@@ -6,6 +6,7 @@ const CONFIG = {
         category: 'errorLogger', // logger 名称
         type: 'dateFile', // 日志类型为 dateFile
         filename: 'logs/error/error', // 日志输出位置
+        encoding: 'utf-8',
         alwaysIncludePattern: true, // 是否总是有后缀名
         pattern: 'yyyy-MM-dd-hh.log', // 后缀，每小时创建一个新的日志文件
       },
@@ -13,6 +14,7 @@ const CONFIG = {
         category: 'resLogger',
         type: 'dateFile',
         filename: 'logs/response/response',
+        encoding: 'utf-8',
         alwaysIncludePattern: true,
         pattern: 'yyyy-MM-dd-hh.log',
       },

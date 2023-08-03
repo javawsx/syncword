@@ -13,11 +13,21 @@ router.get('/forgot-password', async (ctx, next) => {
   await ctx.render('Auth/forgot-password', { title: 'ForgotPassword' })
 })
 
+router.get('/pages-profile-settings', async (ctx, next) => {
+  await ctx.render('pages-profile-settings', {
+    title: 'Profile',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    email: ctx.session.email,
+    user_image: ctx.session.user_image,
+  })
+})
+
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
-    title: 'Dashboard',
-    page_title: 'Dashboard',
-    folder: 'Dashboards',
+    title: 'Index',
+    page_title: 'Data',
+    folder: 'Data',
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
     email: ctx.session.email,
@@ -27,9 +37,9 @@ router.get('/', async (ctx, next) => {
 
 router.get('/index', async (ctx, next) => {
   await ctx.render('index', {
-    title: 'Dashboard',
-    page_title: 'Dashboard',
-    folder: 'Dashboards',
+    title: 'Index',
+    page_title: 'Data',
+    folder: 'Data',
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
     email: ctx.session.email,
@@ -37,12 +47,132 @@ router.get('/index', async (ctx, next) => {
   })
 })
 
-router.get('/pages-profile-settings', async (ctx, next) => {
-  await ctx.render('pages-profile-settings', {
-    title: 'Profile',
+router.get('/player', async (ctx, next) => {
+  await ctx.render('player', {
+    title: 'PLayer',
+    folder: 'Data',
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',
-    email: ctx.session.email,
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/order', async (ctx, next) => {
+  await ctx.render('order', {
+    title: 'Order',
+    folder: 'Data',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/game', async (ctx, next) => {
+  await ctx.render('game', {
+    title: 'Game',
+    folder: 'Game',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/game-locale', async (ctx, next) => {
+  await ctx.render('game-locale', {
+    title: 'GameLocale',
+    folder: 'Game',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/game-server', async (ctx, next) => {
+  await ctx.render('game-server', {
+    title: 'GameServer',
+    folder: 'Game',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/game-shop', async (ctx, next) => {
+  await ctx.render('game-shop', {
+    title: 'GameShop',
+    folder: 'Game',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/pack', async (ctx, next) => {
+  await ctx.render('pack', {
+    title: 'Pack',
+    folder: 'Pack',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/pack-code', async (ctx, next) => {
+  await ctx.render('pack-code', {
+    title: 'PackCode',
+    folder: 'Pack',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/pack-item', async (ctx, next) => {
+  await ctx.render('pack-item', {
+    title: 'PackItem',
+    folder: 'Pack',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/shop', async (ctx, next) => {
+  await ctx.render('shop', {
+    title: 'Shop',
+    folder: 'Pack',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/faq', async (ctx, next) => {
+  await ctx.render('faq', {
+    title: 'FAQ',
+    folder: 'System',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/faq-topic', async (ctx, next) => {
+  await ctx.render('faq-topic', {
+    title: 'FAQTopic',
+    folder: 'System',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/news', async (ctx, next) => {
+  await ctx.render('news', {
+    title: 'News',
+    folder: 'System',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
     user_image: ctx.session.user_image,
   })
 })
@@ -64,83 +194,5 @@ router.get('/auth-500', async (ctx, next) => {
     title: '500 Error',
   })
 })
-
-// router.get('/auth-pass-change-basic', async (ctx, next) => {
-//   await ctx.render('old/auth-pass-change-basic', {
-//     title: 'Change Password',
-//     layout: 'layout/layout-without-nav',
-//   })
-// })
-
-// router.get('/auth-offline', async (ctx, next) => {
-//   await ctx.render('old/auth-offline', {
-//     title: 'Offline',
-//     layout: 'layout/layout-without-nav',
-//   })
-// })
-
-// router.get('/auth-lockscreen-basic', async (ctx, next) => {
-//   await ctx.render('old/auth-lockscreen-basic', {
-//     title: 'Lock Screen',
-//     layout: 'layout/layout-without-nav',
-//   })
-// })
-
-// router.get('/auth-success-msg-basic', async (ctx, next) => {
-//   await ctx.render('old/auth-success-msg-basic', {
-//     title: 'Success Message',
-//     layout: 'layout/layout-without-nav',
-//   })
-// })
-
-// router.get('/auth-twostep-basic', async (ctx, next) => {
-//   await ctx.render('old/auth-twostep-basic', {
-//     title: 'Two Step Verification',
-//     layout: 'layout/layout-without-nav',
-//   })
-// })
-
-// router.get('/landing', async (ctx, next) => {
-//   await ctx.render('old/landing', { title: 'Landing', layout: false })
-// })
-// router.get('/nft-landing', async (ctx, next) => {
-//   await ctx.render('old/nft-landing', { title: 'Landing', layout: false })
-// })
-// router.get('/job-landing', async (ctx, next) => {
-//   await ctx.render('old/job-landing', { title: 'Job Landing', layout: false })
-// })
-
-// router.get('/layouts-horizontal', async (ctx, next) => {
-//   await ctx.render('old/layouts-horizontal', {
-//     layout: 'layout/layout-horizontal',
-//     title: 'Horizontal',
-//     page_title: 'Horizontal',
-//     folder: 'layout',
-//   })
-// })
-// router.get('/layouts-detached', async (ctx, next) => {
-//   await ctx.render('old/layouts-detached', {
-//     layout: 'layout/layout-detached',
-//     title: 'Detached',
-//     page_title: 'Detached',
-//     folder: 'layout',
-//   })
-// })
-// router.get('/layouts-two-column', async (ctx, next) => {
-//   await ctx.render('old/layouts-two-column', {
-//     layout: 'layout/layout-twocolumn',
-//     title: 'Two Column',
-//     page_title: 'Two Column',
-//     folder: 'layout',
-//   })
-// })
-// router.get('/layouts-vertical-hovered', async (ctx, next) => {
-//   await ctx.render('old/layouts-vertical-hovered', {
-//     layout: 'layout/layout-verti-hoverd',
-//     title: 'Vertical Hovered',
-//     page_title: 'Vertical Hovered',
-//     folder: 'layout',
-//   })
-// })
 
 module.exports = router

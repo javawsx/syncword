@@ -15,14 +15,11 @@ const auth = async (ctx, next) => {
     const user = jwt.verify(token, JWT_SECRET)
     ctx.state.user = user
   } catch (err) {
-    console.log(err.name)
     switch (err.name) {
       case 'TokenExpiredError':
-        console.error('token已过期', err)
-        return ctx.app.emit('error', tokenExpiredError, err)
+        return ctx.app.emit('error', ctx, tokenExpiredError, err)
       case 'JsonWebTokenError':
-        console.error('无效的Token', err)
-        return ctx.app.emit('error', invalidToken, err)
+        return ctx.app.emit('error', ctx, invalidToken, err)
     }
   }
 

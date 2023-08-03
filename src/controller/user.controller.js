@@ -10,9 +10,15 @@ const {
   userRegisterError,
   fileUploadError,
   noSupportFileType,
+  userLoginError,
+  userUpdateError,
+  userGetError,
+  passwordUpdateError,
+  imageUpdateError,
 } = require('../constant/err.type')
 const { JWT_SECRET } = require('../config/config.default')
 const uEmail = require('../utils/email')
+const ResP = require('../app/resHandler')
 
 class UserController {
   async register(ctx, next) {
@@ -24,17 +30,14 @@ class UserController {
       const res = await createUser(user_name, password, email, user_image)
 
       // 3.返回结果
-      ctx.body = {
-        code: 0,
-        message: '用户注册成功！',
-        result: {
+      if (res != null) {
+        ctx.body = ResP.json('用户注册成功！', {
           id: res.id,
           user_name: res.user_name,
-        },
+        })
       }
     } catch (err) {
-      console.log(err)
-      ctx.app.emit('error', userRegisterError, ctx)
+      return ctx.app.emit('error', ctx, userRegisterError, ctx, err)
     }
   }
 
@@ -45,24 +48,25 @@ class UserController {
     try {
       // 获取查询数据
       const userInfo = await getUserInfo({ user_name })
-      // session赋值
-      ctx.session.isLogin = true
-      ctx.session.username = userInfo.user_name
-      ctx.session.is_admin = userInfo.is_admin
-      ctx.session.email = userInfo.email
-      ctx.session.user_image = userInfo.user_image
+      if (userInfo != null) {
+        // session赋值
+        ctx.session.isLogin = true
+        ctx.session.username = userInfo.user_name
+        ctx.session.is_admin = userInfo.is_admin
+        ctx.session.email = userInfo.email
+        ctx.session.user_image = userInfo.user_image
 
-      // 从返回结果中剔除password和email
-      const { password, email, ...res } = userInfo
+        // 从返回结果中剔除password和email
+        const { password, email, ...res } = userInfo
 
-      // 返回结果
-      ctx.body = {
-        code: 0,
-        message: '用户登录成功！',
-        result: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
+        // 返回结果
+        ctx.body = ResP.json(
+          '用户登录成功！',
+          jwt.sign(res, JWT_SECRET, { expiresIn: '1d' })
+        )
       }
     } catch (err) {
-      console.error('用户登录失败！', err)
+      return ctx.app.emit('error', ctx, userLoginError, ctx, err)
     }
   }
 
@@ -72,14 +76,12 @@ class UserController {
     try {
       // 从返回结果中剔除password和email
       const { password, ...res } = await getUserInfo({ id })
-
-      ctx.body = {
-        code: 0,
-        message: '用户信息获取成功！',
-        result: res,
+      if (res != null) {
+        // 返回结果
+        ctx.body = ResP.json('用户信息获取成功！', res)
       }
     } catch (err) {
-      console.error('用户信息获取失败！', err)
+      return ctx.app.emit('error', ctx, userGetError, ctx, err)
     }
   }
 
@@ -94,14 +96,10 @@ class UserController {
         ctx.session.email = email
 
         // 3.返回结果
-        ctx.body = {
-          code: 0,
-          message: '用户信息更新成功！',
-          result: '',
-        }
+        ctx.body = ResP.success('用户信息更新成功！')
       }
     } catch (err) {
-      console.error('用户信息更新失败！', err)
+      return ctx.app.emit('error', ctx, userUpdateError, ctx, err)
     }
   }
 
@@ -120,35 +118,24 @@ class UserController {
           // 成功，更新用户信息session值
           ctx.session.user_image = user_image
           // 3.返回结果
-          ctx.body = {
-            code: 0,
-            message: '头像更新成功！',
-            result: '',
-          }
+          ctx.body = ResP.success('头像更新成功！')
         }
       } catch (err) {
-        console.error('头像更新失败！', err)
+        return ctx.app.emit('error', ctx, imageUpdateError, ctx, err)
       }
     } else {
-      return ctx.app.emit('error', fileUploadError, ctx)
+      return ctx.app.emit('error', ctx, fileUploadError, ctx)
     }
   }
 
   async sendCaptcha(ctx, next) {
     const { email } = ctx.request.body
-    if (email) {
-      uEmail.send(email, numRandom(100000, 999999))
-      ctx.body = {
-        code: 0,
-        message: '邮件已发送',
-        result: '',
+    try {
+      if (await uEmail.send(email, numRandom(100000, 999999))) {
+        ctx.body = ResP.success('邮件已发送')
       }
-    } else {
-      ctx.body = {
-        code: 1,
-        message: 'email 不存在',
-        result: '',
-      }
+    } catch (err) {
+      return ctx.app.emit('error', ctx, fileUploadError, ctx, err)
     }
   }
 
@@ -161,14 +148,10 @@ class UserController {
     try {
       if (await updateById({ id, password })) {
         // 3.返回结果
-        ctx.body = {
-          code: 0,
-          message: '密码更新成功！',
-          result: '',
-        }
+        ctx.body = ResP.success('密码更新成功！')
       }
     } catch (err) {
-      console.error('密码更新失败！', err)
+      return ctx.app.emit('error', ctx, passwordUpdateError, ctx, err)
     }
   }
 }

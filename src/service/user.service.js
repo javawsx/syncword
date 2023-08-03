@@ -5,7 +5,7 @@ class UserService {
     //TODO 数据库操作
     const res = await User.create({ user_name, password, email, user_image })
     // 返回执行结果数据
-    return res.dataValues
+    return res ? res.dataValues : null
   }
 
   async getUserInfo({ id, user_name, password, email, is_admin }) {

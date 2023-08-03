@@ -23,18 +23,24 @@ logFormat.response = (ctx, resTime) => {
 
 //格式化响应日志
 const formatRes = (ctx, resTime) => {
-  let responserLog = formatReqLog(ctx.request, resTime) // 添加请求日志
-  responserLog.push(`response status: ${ctx.status}`) // 响应状态码
-  responserLog.push(`response body: \n${JSON.stringify(ctx.body)}`) // 响应内容
+  const responserLog = formatReqLog(ctx.request, resTime) // 添加请求日志
+  responserLog.push(`response status: ${ctx.status}`) // 响应状态
+  responserLog.push(`response message: ${ctx.message}`) // 响应内容
+  if (ctx.body) {
+    responserLog.push(`response body code: ${ctx.body.code}`) // 响应码
+    responserLog.push(
+      `response body message: ${JSON.stringify(ctx.body.message)}`
+    ) // 响应内容
+  }
   responserLog.push(`------------------------ end\n`) // 响应日志结束
   return responserLog.join('\n')
 }
 
 //格式化错误日志
 const formatError = (ctx, err, resTime) => {
-  let errorLog = formatReqLog(ctx.request, resTime) // 添加请求日志
+  const errorLog = formatReqLog(ctx.request, resTime) // 添加请求日志
   errorLog.push(`err name: ${err.name}`) // 错误名称
-  errorLog.push(`err message: ${err.message}`) // 错误信息
+  errorLog.push(`err status: ${err.status}`) // 错误状态码
   errorLog.push(`err stack: ${err.stack}`) // 错误详情
   errorLog.push(`------------------------ end\n`) // 错误信息结束
   return errorLog.join('\n')
@@ -42,9 +48,9 @@ const formatError = (ctx, err, resTime) => {
 
 // 格式化请求日志
 const formatReqLog = (req, resTime) => {
-  let method = req.method
+  const method = req.method
   // 访问方法 请求原始地址 客户端ip
-  let formatLog = [
+  const formatLog = [
     `\n------------------------ ${method} ${req.originalUrl}`,
     `request client ip: ${req.ip}`,
   ]

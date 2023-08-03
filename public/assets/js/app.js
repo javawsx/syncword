@@ -13,7 +13,7 @@
     c,
     u = document.querySelector('.navbar-menu').innerHTML,
     g = 7,
-    b = 'en',
+    b = 'ch',
     y = localStorage.getItem('language')
   function p() {
     E(null === y ? b : y)
@@ -27,7 +27,10 @@
   }
   function E(e) {
     document.getElementById('header-lang-img') &&
-      ('en' == e
+      ('ch' == e
+        ? (document.getElementById('header-lang-img').src =
+            'assets/images/flags/china.svg')
+        : 'en' == e
         ? (document.getElementById('header-lang-img').src =
             'assets/images/flags/us.svg')
         : 'sp' == e
@@ -42,9 +45,6 @@
         : 'ru' == e
         ? (document.getElementById('header-lang-img').src =
             'assets/images/flags/russia.svg')
-        : 'ch' == e
-        ? (document.getElementById('header-lang-img').src =
-            'assets/images/flags/china.svg')
         : 'fr' == e
         ? (document.getElementById('header-lang-img').src =
             'assets/images/flags/french.svg')

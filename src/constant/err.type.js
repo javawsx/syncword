@@ -1,4 +1,9 @@
 module.exports = {
+  operatorError: {
+    code: '10100',
+    message: '操作失败',
+    result: '',
+  },
   userFormateError: {
     code: '10101',
     message: '用户名或者密码不能为空',
@@ -64,14 +69,36 @@ module.exports = {
     message: '邮件检查错误',
     result: '',
   },
+  userGetError: {
+    code: '10114',
+    message: '用户信息获取失败',
+    result: '',
+  },
+  userUpdateError: {
+    code: '10115',
+    message: '用户更新失败',
+    result: '',
+  },
+
+  passwordUpdateError: {
+    code: '10116',
+    message: '密码更新失败',
+    result: '',
+  },
+
   fileUploadError: {
     code: '10201',
-    message: '图片上传失败',
+    message: '上传失败',
     result: '',
   },
   noSupportFileType: {
     code: '10202',
     message: '不支持的文件格式',
+    result: '',
+  },
+  imageUpdateError: {
+    code: '10203',
+    message: '头像更新失败',
     result: '',
   },
 }

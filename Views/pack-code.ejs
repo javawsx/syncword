@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ch" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+  data-sidebar-image="none" data-preloader="disable">
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    <%-title%> | 2CY.GAME - Pack Code Template
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+  <meta content="Themesbrand" name="author" />
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
+  <%- include('layout/head-css'); %>
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="layout-wrapper">
+    <%- include('layout/topbar'); %>
+      <%- include('layout/sidebar'); %>
+        <div class="main-content overflow-hidden">
+          <div class="page-content">
+            <div class="container-fluid">
+              <%- include('layout/page-title'); %>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-title mb-0" data-key="t-pack-code">PackCode</h5>
+                      </div>
+                      <div>
+                        <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="addPackCode"
+                          data-bs-target="#addPackCodeModal"><i class="ri-add-line align-bottom me-1"></i>
+                          Add</button>
+
+                        <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="importPackCode"
+                          data-bs-target="#importPackCodeModal"><i class="ri-file-excel-2-fill align-bottom me-1"></i>
+                          Import</button>
+                      </div>
+                      <div class="card-body">
+                        <table id="packCodeTables" class="display table table-bordered dt-responsive"
+                          style="width:100%">
+                          <tbody>
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th data-key="t-pack-id">PackId</th>
+                                <th data-key="t-pack-code">Code</th>
+                                <th data-key="t-edit">Edit</th>
+                                <th data-key="t-delete">Delete</th>
+                              </tr>
+                            </thead>
+                          <tfoot>
+                            <tr>
+                              <th>ID</th>
+                              <th>PackId</th>
+                              <th>Code</th>
+                              <th>Edit</th>
+                              <th>Delete</th>
+                            </tr>
+                          </tfoot>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal fade" id="importPackCodeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                              <h5 class="modal-title" id="exampleModalLabel" data-key="t-import">Import</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="close-modal"></button>
+                            </div>
+                            <form class="tablelist-form" autocomplete="off">
+                              <div class="modal-body">
+                                <div class="dropzone">
+                                  <div class="fallback">
+                                    <input name="file" type="file" multiple="multiple" id="file-code-import">
+                                  </div>
+                                  <div class="dz-message needsclick text-center">
+                                    <div class="mb-3">
+                                      <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                                    </div>
+                                    <h4 data-key="t-upload-message">Drop files here or click to upload.</h4>
+                                  </div>
+                                </div>
+                                <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                  <li class="mt-2" id="dropzone-preview-list">
+                                    <!-- This is used as the file preview template -->
+                                    <div class="border rounded">
+                                      <div class="d-flex p-2">
+                                        <div class="flex-shrink-0 me-3">
+                                          <div class="avatar-sm bg-light rounded">
+                                            <img data-dz-thumbnail class="img-fluid rounded d-block"
+                                              src="assets/images/new-document.png" alt="Dropzone-Image" />
+                                          </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                          <div class="pt-1">
+                                            <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
+                                            <p class="fs-13 text-muted mb-0" data-dz-size></p>
+                                            <strong class="error text-danger" data-dz-errormessage></strong>
+                                          </div>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-3">
+                                          <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal fade" id="addPackCodeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                              <h5 class="modal-title" id="exampleModalLabel" data-key="t-add">Add</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="close-modal"></button>
+                            </div>
+                            <form class="tablelist-form" autocomplete="off">
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                  <label for="PackId" class="form-label" data-key="t-pack">
+                                    PackId</label>
+                                  <select class="js-example-basic-single" name="state" id="PackId">
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Code" class="form-label" data-key="t-pack-code">
+                                    Code</label>
+                                  <input type="text" id="Code" class="form-control" required />
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <div class="hstack gap-2 justify-content-center remove">
+                                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-success" id="add-btn"
+                                    data-key="t-add">Add</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal fade" id="editPackCodeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                              <h5 class="modal-title" id="exampleModalLabel" data-key="t-edit">Edit</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="close-modal"></button>
+                            </div>
+                            <form class="tablelist-form" autocomplete="off">
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                  <input type="number" id="editId" class="form-control" hidden>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="editPackId" class="form-label" data-key="t-pack-id">
+                                    PackId</label>
+                                  <select class="js-example-basic-single" name="state" id="editPackId">
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="editCode" class="form-label" data-key="t-pack-code">
+                                    Code</label>
+                                  <input type="text" id="editCode" class="form-control" required />
+                                </div>
+
+                              </div>
+                              <div class="modal-footer">
+                                <div class="hstack gap-2 justify-content-center remove">
+                                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-success" id="edit-btn"
+                                    data-key="t-edit">Edit</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="deletePackCodeModel" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                              <h5 class="modal-title" id="exampleModalLabel" data-key="t-delete">Delete</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="close-modal"></button>
+                            </div>
+                            <form class="tablelist-form" autocomplete="off">
+                              <input type="number" id="deleteId" hidden>
+                              <div class="modal-body p-5 text-center">
+                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                  colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
+                                <div class="mt-4 text-center">
+                                  <h4 data-key="t-delete-check">You want to delete this recorder ?</h4>
+                                  <p class="text-muted fs-15 mb-4" data-key="t-delete-alert">Deleting this recorder will
+                                    remove all of
+                                    information from your database.</p>
+                                  <div class="modal-footer">
+                                    <div class="hstack gap-2 justify-content-center remove">
+                                      <button type="button" class="btn btn-primary " data-bs-dismiss="modal"
+                                        data-key="t-cancel"> Close</button>
+                                      <button type="submit" class="btn btn-danger" id="delete-btn"
+                                        data-key="t-delete">Yes, Delete
+                                        It</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!--end modal -->
+                    </div>
+                  </div>
+                  <!--end col-->
+                </div>
+                <!--end row-->
+
+
+            </div>
+            <!-- container-fluid -->
+          </div>
+          <!-- End Page-content -->
+          <%- include('layout/footer'); %>
+
+        </div>
+
+        <!--end row-->
+        <!-- end main content-->
+  </div>
+  <!-- END layout-wrapper -->
+  <%- include('layout/customizer'); %>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="module" src="assets/js/pack/code.js"></script>
+    <!-- dropzone min -->
+    <script src="assets/libs/dropzone/dropzone-min.js"></script>
+    <!-- filepond js -->
+    <script src="assets/libs/filepond/filepond.min.js"></script>
+    <script src="assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script
+      src="assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+
+    <%- include('layout/vendor-scripts'); %>
+      <!-- App js -->
+      <script src="assets/js/app.js"></script>
+</body>
+
+</html>

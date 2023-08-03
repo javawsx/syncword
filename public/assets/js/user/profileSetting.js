@@ -1,4 +1,8 @@
-import { doUserImageEdit, doUserEdit, doChangePassword } from '../axios/api.js'
+import {
+  doUserImageEdit,
+  doUserEdit,
+  doChangePassword,
+} from '../axios/user.api.js'
 import {
   alertSuccess,
   alertLinkAfterSuccess,

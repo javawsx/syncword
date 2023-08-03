@@ -1,18 +1,19 @@
 const path = require('path')
 const fs = require('fs')
-
-const app = require('./koa')
-
 const cors = require('@koa/cors')
 const { koaBody } = require('koa-body')
 const koaStatic = require('koa-static')
 const views = require('koa-views')
 const koaEjs = require('koa-ejs')
 const session = require('koa-session')
+const onerror = require('koa-onerror')
+const koaLogger = require('koa-logger')
 
 const errHandler = require('./errHandler')
 const router = require('../router/index')
 const logger = require('../middleware/logger.middleware')
+
+const app = require('./koa')
 
 // 全局使用跨域中间件
 app.use(cors())
@@ -20,15 +21,11 @@ app.use(cors())
 // 全局使用日志中间件
 app.use(logger())
 
+// 错误处理
+onerror(app)
+
 // 配置静态资源
 app.use(koaStatic(process.cwd() + '/public'))
-
-// 配置模版引擎中间件
-// app.use(
-//   views(process.cwd() + '/Views', {
-//     extension: 'ejs',
-//   })
-// )
 
 // 配置模版引擎中间件
 koaEjs(app, {

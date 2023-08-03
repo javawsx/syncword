@@ -10,7 +10,6 @@ const {
   invalidPasswordError,
   emailNotRegister,
   emailCheckError,
-  userDoesNotExits,
   userLoginError,
 } = require('../constant/err.type')
 
@@ -18,9 +17,11 @@ const {
 const userValidator = async (ctx, next) => {
   const { user_name, password } = ctx.request.body
   if (Validator.isEmpty(user_name) || Validator.isEmpty(password)) {
-    console.error('用户名或者密码不能为空', ctx.request.body)
-    ctx.app.emit('error', userFormateError, ctx)
-    return
+    // 终端输出错误
+    console.error(userFormateError.message, ctx.request.body)
+
+    // 返回前端错误
+    return ctx.app.emit('error', ctx, userFormateError)
   }
 
   await next()
@@ -33,9 +34,10 @@ const verifyPassword = async (ctx, next) => {
     !Validator.isLength(password, { min: 8, max: undefined }) ||
     !Validator.isAlphanumeric(password)
   ) {
-    console.error('密码格式不正确', ctx.request.body)
-    ctx.app.emit('error', userPasswordError, ctx)
-    return
+    // 终端输出错误
+    console.error(userPasswordError.message, ctx.request.body)
+    // 返回前端错误
+    return ctx.app.emit('error', ctx, userPasswordError)
   }
   await next()
 }
@@ -44,9 +46,10 @@ const verifyPassword = async (ctx, next) => {
 const verifyEmail = async (ctx, next) => {
   const { email } = ctx.request.body
   if (Validator.isEmpty(email) || !Validator.isEmail(email)) {
-    console.error('邮箱不能为空或者邮箱格式不正确', ctx.request.body)
-    ctx.app.emit('error', userEmailError, ctx)
-    return
+    // 终端输出错误
+    console.error(userEmailError.message, ctx.request.body)
+    // 返回前端错误
+    return ctx.app.emit('error', ctx, userEmailError)
   }
   await next()
 }
@@ -59,17 +62,21 @@ const verifyUser = async (ctx, next) => {
     const res = await getUserInfo({ user_name })
 
     if (res) {
-      console.error('用户已存在', { user_name })
-      ctx.app.emit('error', userAlreadyExisted, ctx)
-      return
+      // 终端输出错误
+      console.error(userAlreadyExisted.message, { user_name })
+      // 返回前端错误
+      return ctx.app.emit('error', ctx, userAlreadyExisted)
     }
   } catch (error) {
-    console.error('获取用户信息错误', error)
-    return ctx.app.emit('error', userRegisterError, ctx)
+    // 终端输出错误
+    console.error(userRegisterError.message, error)
+    // 返回前端错误
+    return ctx.app.emit('error', ctx, userRegisterError)
   }
 
   await next()
 }
+
 // 密码加密中间件
 const cryptPassword = async (ctx, next) => {
   const { password } = ctx.request.body
@@ -88,21 +95,25 @@ const verifyLogin = async (ctx, next) => {
     const res = await getUserInfo({ user_name })
 
     if (!res) {
+      // 终端输出错误
       console.error('用户不存在', { user_name })
-      ctx.app.emit('error', userDoesNotExits, ctx)
-      return
+      // 返回前端错误
+      return ctx.app.emit('error', ctx, invalidPasswordError)
     }
 
     // 2. 验证密码是否正确
 
     if (!bcrypt.compareSync(password, res.password)) {
+      // 终端输出错误
       console.error('密码不匹配')
-      ctx.app.emit('error', invalidPasswordError, ctx)
-      return
+      // 返回前端错误
+      return ctx.app.emit('error', ctx, invalidPasswordError)
     }
-  } catch (error) {
-    console.error('用户登录失败', error)
-    return ctx.app.emit('error', userLoginError, ctx)
+  } catch (err) {
+    // 终端输出错误
+    console.error('用户登录失败')
+    // 返回前端错误
+    return ctx.app.emit('error', ctx, userLoginError, err)
   }
 
   await next()
@@ -118,11 +129,11 @@ const verifyEmailExist = async (ctx, next) => {
 
     if (!res) {
       console.error('该邮件并未注册账户，请检查', { email })
-      ctx.app.emit('error', emailNotRegister, ctx)
-      return
+      // 返回前端错误
+      return ctx.app.emit('error', ctx, emailNotRegister)
     }
-  } catch (error) {
-    return ctx.app.emit('error', emailCheckError, ctx)
+  } catch (err) {
+    return ctx.app.emit('error', ctx, emailCheckError, err)
   }
 
   await next()
