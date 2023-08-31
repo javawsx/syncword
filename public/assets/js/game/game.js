@@ -93,6 +93,11 @@ $(document).ready(function () {
     })
 })
 
+// 点击事件跳转增加游戏界面
+document.querySelector('#addGame').addEventListener('click', function () {
+  window.location.href = '/game-add'
+})
+
 // 点击事件渲删除语言界面
 $('#gameTables tbody').on('click', '.deleteGame', function () {
   var game = gameTable.row($(this)).data()

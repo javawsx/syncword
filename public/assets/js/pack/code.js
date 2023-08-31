@@ -19,16 +19,16 @@ $(document).ready(function () {
           { data: 'id' },
           { data: 'pack_id' },
           { data: 'code' },
-          {
-            targets: -1,
-            data: null,
-            defaultContent:
-              "<div class='d-flex gap-1 flex-wrap'>" +
-              "<button type='button' class='btn btn-success editPackCode' data-bs-toggle='modal' id='editPackCode' data-bs-target='#editPackCodeModal'>" +
-              "<i class='ri-pencil-fill fs-16'></i> Edit" +
-              '</button>' +
-              '</div>',
-          },
+          // {
+          //   targets: -1,
+          //   data: null,
+          //   defaultContent:
+          //     "<div class='d-flex gap-1 flex-wrap'>" +
+          //     "<button type='button' class='btn btn-success editPackCode' data-bs-toggle='modal' id='editPackCode' data-bs-target='#editPackCodeModal'>" +
+          //     "<i class='ri-pencil-fill fs-16'></i> Edit" +
+          //     '</button>' +
+          //     '</div>',
+          // },
           {
             targets: -1,
             data: null,
@@ -77,19 +77,19 @@ document.querySelector('#addPackCode').addEventListener('click', function () {
 })
 
 // 点击事件渲染修改商品界面下拉框
-$('#packCodeTables tbody').on('click', '.editPackCode', function () {
-  var PackCode = packCodeTable.row($(this).parents('tr')).data()
-  $('.js-example-basic-single').select2({
-    data: selectData,
-    dropdownParent: $('#editPackCodeModal'),
-  })
+// $('#packCodeTables tbody').on('click', '.editPackCode', function () {
+//   var PackCode = packCodeTable.row($(this).parents('tr')).data()
+//   $('.js-example-basic-single').select2({
+//     data: selectData,
+//     dropdownParent: $('#editPackCodeModal'),
+//   })
 
-  // 设置初始值
-  document.getElementById('editId').value = PackCode.id
-  $('#editPackId').val(PackCode.pack_id)
-  $('#editPackId').trigger('change')
-  document.getElementById('editCode').value = PackCode.code
-})
+//   // 设置初始值
+//   document.getElementById('editId').value = PackCode.id
+//   $('#editPackId').val(PackCode.pack_id)
+//   $('#editPackId').trigger('change')
+//   document.getElementById('editCode').value = PackCode.code
+// })
 
 // 新增游戏商品
 document.querySelector('#add-btn').addEventListener('click', function () {

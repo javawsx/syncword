@@ -77,6 +77,16 @@ router.get('/game', async (ctx, next) => {
   })
 })
 
+router.get('/game-add', async (ctx, next) => {
+  await ctx.render('game-add', {
+    title: 'GameAdd',
+    folder: 'Game',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
 router.get('/game-locale', async (ctx, next) => {
   await ctx.render('game-locale', {
     title: 'GameLocale',
@@ -120,6 +130,16 @@ router.get('/pack', async (ctx, next) => {
 router.get('/pack-code', async (ctx, next) => {
   await ctx.render('pack-code', {
     title: 'PackCode',
+    folder: 'Pack',
+    user_name: ctx.session.username,
+    auth: ctx.session.is_admin ? '管理员' : '普通用户',
+    user_image: ctx.session.user_image,
+  })
+})
+
+router.get('/pack-create', async (ctx, next) => {
+  await ctx.render('pack-create', {
+    title: 'PackCreate',
     folder: 'Pack',
     user_name: ctx.session.username,
     auth: ctx.session.is_admin ? '管理员' : '普通用户',

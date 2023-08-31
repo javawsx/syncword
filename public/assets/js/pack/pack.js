@@ -73,12 +73,9 @@ $('#packTables tbody').on('click', '.deletePack', function () {
   document.getElementById('deleteId').value = Pack.id
 })
 
-// 点击事件渲染增加商品界面下拉框
+// 点击事件跳转增加礼包界面
 document.querySelector('#addPack').addEventListener('click', function () {
-  $('.js-example-basic-single').select2({
-    data: selectData,
-    dropdownParent: $('#addPackModal'),
-  })
+  window.location.href = '/pack-create'
 })
 
 // 点击事件渲染修改商品界面下拉框
@@ -111,7 +108,6 @@ document.querySelector('#add-btn').addEventListener('click', function () {
   var org_price = document.getElementById('OrgPrice').value
   var discount = document.getElementById('Discount').value
   var order = document.getElementById('Order').value
-  console.log(id)
   doPackAdd({
     id: id,
     game_id: game_id,

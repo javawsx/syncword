@@ -17,6 +17,11 @@ class PackItemService {
     return res ? res.dataValues : null
   }
 
+  async createBatch(data) {
+    const res = await PackItem.bulkCreate(data)
+    return res ? res : null
+  }
+
   async updateById({ id, pack_id, name, amount, price }) {
     const whereOpt = { id }
     const newPackItem = {}

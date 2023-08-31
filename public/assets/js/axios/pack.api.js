@@ -89,6 +89,15 @@ export const doItemAdd = (data) => {
     data: data,
   })
 }
+
+// 新增礼包道具
+export const doItemAddBatch = (data) => {
+  return service({
+    url: '/api/pack-item/addBatch',
+    method: 'post',
+    data: data,
+  })
+}
 // 修改礼包道具
 export const doItemEdit = (data) => {
   return service({

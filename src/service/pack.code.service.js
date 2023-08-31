@@ -17,7 +17,7 @@ class PackCodeService {
 
   async createBatch(data) {
     const res = await PackCode.bulkCreate(data)
-    return res ? res.dataValues : null
+    return res ? res : null
   }
 
   async updateById({ id, pack_id, code }) {

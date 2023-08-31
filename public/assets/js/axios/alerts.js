@@ -1,7 +1,7 @@
 export const alertSuccess = (data) => {
   Swal.fire({
     title: 'Good job!',
-    text: data,
+    text: data.message,
     icon: 'success',
     confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
     buttonsStyling: !1,

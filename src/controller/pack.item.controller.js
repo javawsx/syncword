@@ -1,6 +1,7 @@
 const {
   getList,
   create,
+  createBatch,
   updateById,
   deleteById,
 } = require('../service/pack.item.service')
@@ -32,6 +33,19 @@ class PackItemController {
 
       if (res != null) {
         ctx.body = ResP.success('礼包道具信息添加成功！')
+      }
+    } catch (err) {
+      return ctx.app.emit('error', ctx, operatorError, err)
+    }
+  }
+
+  async createBatch(ctx, next) {
+    const items = ctx.request.body
+    console.log(items)
+    try {
+      const res = await createBatch(items)
+      if (res != null) {
+        ctx.body = ResP.success('礼包道具信息批量添加成功！')
       }
     } catch (err) {
       return ctx.app.emit('error', ctx, operatorError, err)
